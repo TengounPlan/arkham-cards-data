@@ -101,6 +101,11 @@
       "steps": [
         "check_leah",
         "check_simeon",
+        "check_river",
+        "check_judith",
+        "check_william",
+        "check_theo",
+        "check_gideon",
         "rachel_and_judith_at_crossroads",
         "set_aside_residents"
       ]
@@ -157,6 +162,155 @@
       "id": "remove_simeon",
       "bullet_type": "small",
       "text": "Remove Simeon Atwood from the game."
+    },
+
+    {
+      "id": "check_river",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "river",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_river"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_5",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_river",
+      "bullet_type": "small",
+      "text": "Remove River Hawthorne from the game."
+    },
+
+    {
+      "id": "check_judith",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "judith",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_judith"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_7",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_judith",
+      "bullet_type": "small",
+      "text": "Remove Judith Park from the game."
+    },
+
+    {
+      "id": "check_william",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "william",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_william"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_4",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_william",
+      "bullet_type": "small",
+      "text": "Remove William Hemlock from the game."
+    },
+    {
+      "id": "check_theo",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "theo",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_theo"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_8",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_theo",
+      "bullet_type": "small",
+      "text": "Remove Theo Peters from the game."
+    },
+
+    {
+      "id": "check_gideon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "gideon",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_gideon"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_6",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_gideon",
+      "bullet_type": "small",
+      "text": "Remove Gideon Mizrah from the game."
+    },
+    {
+      "id": "remove_helen",
+      "bullet_type": "small",
+      "text": "Remove Helen Peters from the game."
     },
     {
       "id": "set_aside_residents",
@@ -717,7 +871,7 @@
           {
             "id": "accuse",
             "text": "<i>“I see you for what you really are.”</i>",
-            "steps": ["rachel_4", "decrease_rachel", "maybe_decrease_rachel"]
+            "steps": ["rachel_4", "decrease_rachel"]
           }
         ]
       }
@@ -771,40 +925,16 @@
           "bonus": 1,
           "investigator": "all",
           "special_xp": "unspect_xp"
-        }
-      ]
-    },
-    {
-      "id": "maybe_decrease_rachel",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
+        },
+        {
           "type": "campaign_log_count",
           "section": "rachel",
-          "id": "$relationship"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 0
-        },
-        "options": [
-          {
-            "numCondition": 1,
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "rachel",
-                "id": "$relationship",
-                "operation": "add",
-                "value": -1
-              }
-            ]
-          }
-        ]
-      }
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
     },
     {
       "id": "check_simeon_crossed_out",
@@ -1696,6 +1826,29 @@
       ]
     },
     {
+      "id": "hidden_check_dr_marquez_has_a_plan",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "dr_marquez_has_a_plan",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "dr_marquez_ready_for_fate_of_vale",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_simeon_fireworks",
       "text": "Update your Campaign Log. In Simeon Atwood’s Notes, if there are at least 1 [per_investigator] tallies next to <i>the plan is underway</i>:",
       "type": "branch",
@@ -1728,6 +1881,7 @@
     },
     {
       "id": "the_vale_is_full_of_fireworks",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -1788,6 +1942,7 @@
       "text": "Dr. Marquez nods along to Bertie’s observation. “You’re onto something. The bliss is almost a kind of lure. Draw in prey, numb them to pain and drain them of their faculties, then devour what remains.” The professor arches an eyebrow. “It would have to be a highly advanced apex predator. Although I’m still suspicious the odd behavior is due to toxic gas.”",
       "steps": [
         "dr_marquez_has_a_hunch",
+        "hidden_check_dr_marquez_has_a_plan",
         "resolution_2"
       ]
     },
